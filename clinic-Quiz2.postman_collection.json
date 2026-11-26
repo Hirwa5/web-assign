@@ -1,0 +1,305 @@
+{
+  "info": {
+    "name": "clinic-Quiz2",
+    "_postman_id": "clinic-quiz2-collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "SETUP",
+      "item": [
+        {
+          "name": "Get All Offices",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/offices/all", "host": ["localhost"], "port": "8080", "path": ["api","offices","all"] }
+          }
+        },
+        {
+          "name": "Get All Doctors",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/doctors/all", "host": ["localhost"], "port": "8080", "path": ["api","doctors","all"] }
+          }
+        },
+        {
+          "name": "Get All Patients",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/patients/all", "host": ["localhost"], "port": "8080", "path": ["api","patients","all"] }
+          }
+        },
+        {
+          "name": "Get All Appointments",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/appointments/all", "host": ["localhost"], "port": "8080", "path": ["api","appointments","all"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Part A - Doctors and Offices",
+      "item": [
+        {
+          "name": "A1 - Add Specialization to Doctor (200 success)",
+          "request": {
+            "method": "PUT",
+            "url": { "raw": "http://localhost:8080/api/doctors/37df6a3a-b0e9-4b61-8456-adf7d0964c0f/specializations/5f7f3fee-f583-43e9-a11e-746c195eb75d", "host": ["localhost"], "port": "8080", "path": ["api","doctors","37df6a3a-b0e9-4b61-8456-adf7d0964c0f","specializations","5f7f3fee-f583-43e9-a11e-746c195eb75d"] }
+          }
+        },
+        {
+          "name": "A1 - Add Specialization - 409 already has it",
+          "request": {
+            "method": "PUT",
+            "url": { "raw": "http://localhost:8080/api/doctors/37df6a3a-b0e9-4b61-8456-adf7d0964c0f/specializations/f40b38b0-1929-4993-8a91-5ca2f46fa6fa", "host": ["localhost"], "port": "8080", "path": ["api","doctors","37df6a3a-b0e9-4b61-8456-adf7d0964c0f","specializations","f40b38b0-1929-4993-8a91-5ca2f46fa6fa"] }
+          }
+        },
+        {
+          "name": "A1 - Add Specialization - 404 doctor not found",
+          "request": {
+            "method": "PUT",
+            "url": { "raw": "http://localhost:8080/api/doctors/00000000-0000-0000-0000-000000000000/specializations/5f7f3fee-f583-43e9-a11e-746c195eb75d", "host": ["localhost"], "port": "8080", "path": ["api","doctors","00000000-0000-0000-0000-000000000000","specializations","5f7f3fee-f583-43e9-a11e-746c195eb75d"] }
+          }
+        },
+        {
+          "name": "A2 - Remove Specialization from Doctor (200 success)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "http://localhost:8080/api/doctors/d6a4d972-b677-42f5-b3aa-1fb78d50a00d/specializations/5f7f3fee-f583-43e9-a11e-746c195eb75d", "host": ["localhost"], "port": "8080", "path": ["api","doctors","d6a4d972-b677-42f5-b3aa-1fb78d50a00d","specializations","5f7f3fee-f583-43e9-a11e-746c195eb75d"] }
+          }
+        },
+        {
+          "name": "A2 - Remove Specialization - 409 does not have it",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "http://localhost:8080/api/doctors/37df6a3a-b0e9-4b61-8456-adf7d0964c0f/specializations/5f7f3fee-f583-43e9-a11e-746c195eb75d", "host": ["localhost"], "port": "8080", "path": ["api","doctors","37df6a3a-b0e9-4b61-8456-adf7d0964c0f","specializations","5f7f3fee-f583-43e9-a11e-746c195eb75d"] }
+          }
+        },
+        {
+          "name": "A3 - Free Offices (returns office 104)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/offices/free", "host": ["localhost"], "port": "8080", "path": ["api","offices","free"] }
+          }
+        },
+        {
+          "name": "A4 - Move Doctor to Office 104 (200 success)",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/doctors/37df6a3a-b0e9-4b61-8456-adf7d0964c0f/office?officeNumber=104", "host": ["localhost"], "port": "8080", "path": ["api","doctors","37df6a3a-b0e9-4b61-8456-adf7d0964c0f","office"], "query": [{ "key": "officeNumber", "value": "104" }] }
+          }
+        },
+        {
+          "name": "A4 - Move Doctor - 409 office taken",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/doctors/37df6a3a-b0e9-4b61-8456-adf7d0964c0f/office?officeNumber=101", "host": ["localhost"], "port": "8080", "path": ["api","doctors","37df6a3a-b0e9-4b61-8456-adf7d0964c0f","office"], "query": [{ "key": "officeNumber", "value": "101" }] }
+          }
+        },
+        {
+          "name": "A4 - Move Doctor - 404 doctor not found",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/doctors/00000000-0000-0000-0000-000000000000/office?officeNumber=104", "host": ["localhost"], "port": "8080", "path": ["api","doctors","00000000-0000-0000-0000-000000000000","office"], "query": [{ "key": "officeNumber", "value": "104" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Part B - Appointment Rules",
+      "item": [
+        {
+          "name": "B1 - Save Appointment (200 success, future date)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:8080/api/appointments/save", "host": ["localhost"], "port": "8080", "path": ["api","appointments","save"] },
+            "body": { "mode": "raw", "raw": "{\n  \"appointmentDate\": \"2026-11-10\",\n  \"reason\": \"General checkup\",\n  \"status\": \"CANCELLED\",\n  \"patient\": { \"id\": \"17d76712-2a75-4534-9451-bd01d1fe97d7\" },\n  \"doctor\": { \"id\": \"37df6a3a-b0e9-4b61-8456-adf7d0964c0f\" }\n}" }
+          }
+        },
+        {
+          "name": "B1 - Save Appointment - 400 past date",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:8080/api/appointments/save", "host": ["localhost"], "port": "8080", "path": ["api","appointments","save"] },
+            "body": { "mode": "raw", "raw": "{\n  \"appointmentDate\": \"2024-01-01\",\n  \"reason\": \"Old visit\",\n  \"status\": \"SCHEDULED\",\n  \"patient\": { \"id\": \"17d76712-2a75-4534-9451-bd01d1fe97d7\" },\n  \"doctor\": { \"id\": \"37df6a3a-b0e9-4b61-8456-adf7d0964c0f\" }\n}" }
+          }
+        },
+        {
+          "name": "B2 - Change Status SCHEDULED to CONFIRMED (200)",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/appointments/03faafb3-21b7-4dc6-b5cd-cf207967462c/status?status=CONFIRMED", "host": ["localhost"], "port": "8080", "path": ["api","appointments","03faafb3-21b7-4dc6-b5cd-cf207967462c","status"], "query": [{ "key": "status", "value": "CONFIRMED" }] }
+          }
+        },
+        {
+          "name": "B2 - Change Status - 400 invalid transition (COMPLETED to SCHEDULED)",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/appointments/6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2/status?status=SCHEDULED", "host": ["localhost"], "port": "8080", "path": ["api","appointments","6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2","status"], "query": [{ "key": "status", "value": "SCHEDULED" }] }
+          }
+        },
+        {
+          "name": "B2 - Change Status - 404 not found",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/appointments/00000000-0000-0000-0000-000000000000/status?status=CONFIRMED", "host": ["localhost"], "port": "8080", "path": ["api","appointments","00000000-0000-0000-0000-000000000000","status"], "query": [{ "key": "status", "value": "CONFIRMED" }] }
+          }
+        },
+        {
+          "name": "B3 - Reschedule Appointment (200 success)",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/appointments/8f34cd5c-11a9-4bde-8d94-cbafe1cc4c79/reschedule?newDate=2026-11-15", "host": ["localhost"], "port": "8080", "path": ["api","appointments","8f34cd5c-11a9-4bde-8d94-cbafe1cc4c79","reschedule"], "query": [{ "key": "newDate", "value": "2026-11-15" }] }
+          }
+        },
+        {
+          "name": "B3 - Reschedule - 400 COMPLETED cannot reschedule",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/appointments/6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2/reschedule?newDate=2026-11-15", "host": ["localhost"], "port": "8080", "path": ["api","appointments","6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2","reschedule"], "query": [{ "key": "newDate", "value": "2026-11-15" }] }
+          }
+        },
+        {
+          "name": "B3 - Reschedule - 409 doctor already booked",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "http://localhost:8080/api/appointments/c3012666-c6d4-4c52-b78c-fc68ec4b5f4c/reschedule?newDate=2026-10-30", "host": ["localhost"], "port": "8080", "path": ["api","appointments","c3012666-c6d4-4c52-b78c-fc68ec4b5f4c","reschedule"], "query": [{ "key": "newDate", "value": "2026-10-30" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Part C - Prescriptions",
+      "item": [
+        {
+          "name": "C1 - Write Prescription (201 success)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:8080/api/prescriptions/save?appointmentId=6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2", "host": ["localhost"], "port": "8080", "path": ["api","prescriptions","save"], "query": [{ "key": "appointmentId", "value": "6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2" }] },
+            "body": { "mode": "raw", "raw": "{\n  \"medicineName\": \"Amoxicillin\",\n  \"dosage\": \"1 tablet, 3 times a day\",\n  \"durationDays\": 7\n}" }
+          }
+        },
+        {
+          "name": "C1 - Write Prescription - 400 not COMPLETED",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:8080/api/prescriptions/save?appointmentId=03faafb3-21b7-4dc6-b5cd-cf207967462c", "host": ["localhost"], "port": "8080", "path": ["api","prescriptions","save"], "query": [{ "key": "appointmentId", "value": "03faafb3-21b7-4dc6-b5cd-cf207967462c" }] },
+            "body": { "mode": "raw", "raw": "{\n  \"medicineName\": \"Paracetamol\",\n  \"dosage\": \"1 tablet, 2 times a day\",\n  \"durationDays\": 5\n}" }
+          }
+        },
+        {
+          "name": "C1 - Write Prescription - 404 appointment not found",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:8080/api/prescriptions/save?appointmentId=00000000-0000-0000-0000-000000000000", "host": ["localhost"], "port": "8080", "path": ["api","prescriptions","save"], "query": [{ "key": "appointmentId", "value": "00000000-0000-0000-0000-000000000000" }] },
+            "body": { "mode": "raw", "raw": "{\n  \"medicineName\": \"Ibuprofen\",\n  \"dosage\": \"1 tablet\",\n  \"durationDays\": 3\n}" }
+          }
+        },
+        {
+          "name": "C2 - Prescriptions of Appointment",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/prescriptions/appointment/6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2", "host": ["localhost"], "port": "8080", "path": ["api","prescriptions","appointment","6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2"] }
+          }
+        },
+        {
+          "name": "C2 - Prescriptions of Appointment - 404 not found",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/prescriptions/appointment/00000000-0000-0000-0000-000000000000", "host": ["localhost"], "port": "8080", "path": ["api","prescriptions","appointment","00000000-0000-0000-0000-000000000000"] }
+          }
+        },
+        {
+          "name": "C3 - Prescription History of Patient SS-001",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/prescriptions/patient/SS-001", "host": ["localhost"], "port": "8080", "path": ["api","prescriptions","patient","SS-001"] }
+          }
+        },
+        {
+          "name": "C4 - Update Prescription (200 success)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:8080/api/prescriptions/update/PRESCRIPTION_ID_HERE", "host": ["localhost"], "port": "8080", "path": ["api","prescriptions","update","PRESCRIPTION_ID_HERE"] },
+            "body": { "mode": "raw", "raw": "{\n  \"medicineName\": \"Amoxicillin\",\n  \"dosage\": \"2 tablets, 2 times a day\",\n  \"durationDays\": 10\n}" }
+          }
+        },
+        {
+          "name": "C4 - Delete Prescription (200 success)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "http://localhost:8080/api/prescriptions/delete/PRESCRIPTION_ID_HERE", "host": ["localhost"], "port": "8080", "path": ["api","prescriptions","delete","PRESCRIPTION_ID_HERE"] }
+          }
+        },
+        {
+          "name": "C4 - Delete Appointment - 409 has prescriptions",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "http://localhost:8080/api/appointments/delete/6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2", "host": ["localhost"], "port": "8080", "path": ["api","appointments","delete","6f6f40c7-1ddb-43d0-8cb8-5a3c318cf3d2"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Part D - Agenda and Reports",
+      "item": [
+        {
+          "name": "D1 - Doctor Agenda on 2026-10-20 (no CANCELLED)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/doctors/d6a4d972-b677-42f5-b3aa-1fb78d50a00d/agenda?date=2026-10-20", "host": ["localhost"], "port": "8080", "path": ["api","doctors","d6a4d972-b677-42f5-b3aa-1fb78d50a00d","agenda"], "query": [{ "key": "date", "value": "2026-10-20" }] }
+          }
+        },
+        {
+          "name": "D1 - Doctor Agenda - 404 doctor not found",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/doctors/00000000-0000-0000-0000-000000000000/agenda?date=2026-10-20", "host": ["localhost"], "port": "8080", "path": ["api","doctors","00000000-0000-0000-0000-000000000000","agenda"], "query": [{ "key": "date", "value": "2026-10-20" }] }
+          }
+        },
+        {
+          "name": "D2 - Upcoming Appointments of Patient SS-001",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/patients/SS-001/upcoming", "host": ["localhost"], "port": "8080", "path": ["api","patients","SS-001","upcoming"] }
+          }
+        },
+        {
+          "name": "D2 - Upcoming Appointments - 404 patient not found",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/patients/SS-999/upcoming", "host": ["localhost"], "port": "8080", "path": ["api","patients","SS-999","upcoming"] }
+          }
+        },
+        {
+          "name": "D3 - Search Doctors by name 'gis' (finds Mugisha)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/doctors/search?name=gis", "host": ["localhost"], "port": "8080", "path": ["api","doctors","search"], "query": [{ "key": "name", "value": "gis" }] }
+          }
+        },
+        {
+          "name": "D3 - Search Doctors by name 'ali' (finds Alice Uwimana)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/doctors/search?name=ali", "host": ["localhost"], "port": "8080", "path": ["api","doctors","search"], "query": [{ "key": "name", "value": "ali" }] }
+          }
+        },
+        {
+          "name": "D4 - Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:8080/api/dashboard/summary", "host": ["localhost"], "port": "8080", "path": ["api","dashboard","summary"] }
+          }
+        }
+      ]
+    }
+  ]
+}
